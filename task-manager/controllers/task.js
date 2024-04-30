@@ -47,14 +47,14 @@ const updateTask = async function(req, res, next) {
         const taskUpdate = await Task.findOneAndUpdate(
             { _id: taskID},
             {$set: {name: name, completed: completed}},
-            { new: true}
+            { new: true, runValidators: true},
         );
         if (!taskUpdate){
             return res.status(404).json({ msg: `Task ${taskID} not found` });
         }
         res.status(200).json({ taskUpdate });
     } catch (error) {
-        
+        res.status(500).json({ msg: error.message });
     }
 }
 
