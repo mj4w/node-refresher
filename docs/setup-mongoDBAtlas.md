@@ -23,3 +23,8 @@
 - Create a Database Name & Collection Name
 - Create More Collection
 - Insert Document
+
+
+# NOTE!
+
+- Setup your database name in MONGO_URI in line <b>mongodb.net/? SAMPLE</b>

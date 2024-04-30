@@ -1,23 +1,74 @@
-const getAllItems = (req,res) => {
-    res.send('ALL ITEMS from the file')
+const Task = require('../models/Task')
+
+
+
+const getAllItems = async function(req,res,next){
+    try {   
+        const tasks = await Task.find({});
+        res.status(200).json({ AllTasks:tasks })
+
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
 
 }
 
-const createTask = (req, res) => {
-    res.json(req.body)
+const createTask = async function(req, res, next){
+    try {
+        const existingTask = await Task.findOne({ name: req.body.name });
+        if (existingTask) {
+            return res.status(404).json({ msg: 'Task already exists'});
+        }
+        const task = await Task.create(req.body);
+        res.status(200).json({ task });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
 }
 
-const getTask = (req, res) => {
-    res.json({ id: req.params.id })
+const getTask = async function(req,res,next) {
+    try {
+        const taskID = req.params.id;
+        const task = await Task.findOne({ _id: taskID})
+
+        if (!task){
+            return res.status(404).json({ msg: `Task ${taskID} not found` });
+        }
+        res.json({ task });
+    } catch (err){
+        res.status(500).json({ msg: err.message });
+    }
 }
 
-const updateTask = (req, res) => {
-    res.send('Update Task ')
-
+const updateTask = async function(req, res, next) {
+    try {
+        const taskID = req.params.id;
+        const { name, completed } = req.body;
+        const taskUpdate = await Task.findOneAndUpdate(
+            { _id: taskID},
+            {$set: {name: name, completed: completed}},
+            { new: true}
+        );
+        if (!taskUpdate){
+            return res.status(404).json({ msg: `Task ${taskID} not found` });
+        }
+        res.status(200).json({ taskUpdate });
+    } catch (error) {
+        
+    }
 }
 
-const deleteTask = (req,res) => {
-    res.send('Delete Task ')
+const deleteTask = async function(req,res,next) {
+    try {
+        const taskID = req.params.id;
+        const taskDelete = await Task.findByIdAndDelete({ _id: taskID});
+        if (!taskDelete){
+            return res.status(404).json({ msg: `Task ${taskID} Deletion Failed!` });
+        }
+        res.status(200).json({ msg: `Task ${taskDelete} deleted successfully`, status: 'success' });
+    } catch (err) {
+        res.status(500).json({ msg: err.message });
+    }
 }
 
 module.exports = {
