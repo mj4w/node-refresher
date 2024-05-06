@@ -9,4 +9,6 @@ const createCustomerError = (msg, statusCode) => {
     return new CustomAPIError(msg, statusCode);
 };
 
-module.exports = { createCustomerError, CustomAPIError }
+export {
+    createCustomerError, CustomAPIError,
+}

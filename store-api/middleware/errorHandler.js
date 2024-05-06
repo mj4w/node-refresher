@@ -1,4 +1,4 @@
-const { CustomAPIError } = require('../errors/custom-error');
+import { CustomAPIError } from "../errors/custom-error";
 
 const errorHandlerMiddleware = (err,req,res,next) => {
     if (err instanceof CustomAPIError){
@@ -7,4 +7,4 @@ const errorHandlerMiddleware = (err,req,res,next) => {
     return res.status(500).json({ msg: 'Something went wrong, please try again later!' })
 }
 
-module.exports = errorHandlerMiddleware;
+export default errorHandlerMiddleware

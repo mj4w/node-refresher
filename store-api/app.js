@@ -2,6 +2,7 @@ import express from "express"
 import notFound from "./middleware/notFound"
 import errorMiddleware from "./middleware/errorHandler"
 import { port } from "./env"
+import asyncErrors from "express-async-errors"
 require("dotenv").config()
 import connectDB from "./db/connect"
 import mongoUri from "./settings/mongo.config"
@@ -11,7 +12,8 @@ app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ extended: true, limit: "50mb" }))
 
 // router
-app.use('api/v1/products',)
+import product from "./routes/product"
+app.use('/api/v1/products/',product)
 
 
 app.use(notFound)
