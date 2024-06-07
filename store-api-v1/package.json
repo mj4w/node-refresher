@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "type": "module",
   "scripts": {
-    "start": "nodemon start.js"
+    "start": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,8 +14,11 @@
     "esm": "^3.2.25",
     "express": "^4.19.2",
     "express-async-errors": "^3.1.1",
-    "mongodb": "^5.0.0",
-    "mongoose": "^5.0.0",
-    "nodemon": "^3.1.0"
+    "fs": "^0.0.1-security",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.2",
+    "nodemon": "^3.1.0",
+    "typescript": "^5.4.5",
+    "update": "^0.7.4"
   }
 }
