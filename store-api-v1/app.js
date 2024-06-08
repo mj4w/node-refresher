@@ -4,10 +4,12 @@ import errorMiddleware from "./middleware/errorHandler.js"
 import { port } from "./env.js"
 import connectDB from "./db/connect.js"
 import mongoUri from "./settings/mongo.config.js"
+import morgan from 'morgan'
 
 const app = express()
 app.use(express.json({ limit: "50mb" }))
 app.use(express.urlencoded({ extended: true, limit: "50mb" }))
+app.use(morgan('dev'));
 
 // router
 import product from "./routes/product.js";
@@ -25,7 +27,8 @@ async function start() {
         })
         console.log('Connected successfully to MongoDB');
     } catch (error) {
-        
+        console.log(process.env.MONGO_URI)
+        console.log(error);
     }
 }
 

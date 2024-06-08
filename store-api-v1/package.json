@@ -17,6 +17,7 @@
     "fs": "^0.0.1-security",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",
+    "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
     "typescript": "^5.4.5",
     "update": "^0.7.4"
