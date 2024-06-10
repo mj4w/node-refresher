@@ -43,17 +43,43 @@ const getUser = async (req, res, next) => {
 
 const getAllUsers = async (req,res,next) => {
     try {
-        const user = await User.find()
+        const query = req.query.new;
+        const user = query ? await User.find().sort({ _id: -1 }).limit() : await User.find();
         res.status(200).json(user);
     } catch (error) {
         next(error);
     }
 }
 
+const userStats = async (req,res,next) => {
+    const date = new Date();
+    const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
+
+    try {
+        const data = await User.aggregate([
+            {$match: { createdAt: { $gte: lastYear}}},
+            { 
+                $project: {
+                    month: { $month : "$createdAt"},
+                },
+            },
+            {
+                $group: {
+                    _id: "$month",
+                    total: {$sum: 1 },
+                }
+            }
+        ])
+        res.status(200).json(data);
+    } catch (error) {
+        next(error);
+    }
+}
 
 export {
     updateUser,
     deleteUser,
     getUser,
     getAllUsers,
+    userStats,
 }

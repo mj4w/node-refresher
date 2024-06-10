@@ -59,5 +59,5 @@ export {
     verifyToken,
     verifyTokenAndAuthorization,
     verifyTokenAndAdmin,
-    verifyTokenInAuthorization,
+    // verifyTokenInAuthorization,
 };

@@ -4,7 +4,8 @@ import environment from './env.js';
 import connectDB from './db/connect.js';
 import userRoute from './routes/user.js';
 import authRoute from './routes/auth.js';
-import logger from './middleware/logger.js';
+import productRoute from './routes/product.js';
+// import logger from './middleware/logger.js';
  
 const app = express();
 
@@ -20,11 +21,12 @@ app.get('/', (req, res) => {
 // routes
 app.use('/api/users/', userRoute);
 app.use('/api/auth/', authRoute);
+app.use('/api/product/', productRoute);
 
-app.use((err, req, res, next) => {
-    logger.error(err.stack);
-    res.status(500).send('Something went wrong!');
-});
+// app.use((err, req, res, next) => {
+//     logger.error(err.stack);
+//     res.status(500).send('Something went wrong!');
+// });
 
 async function start(){
     const port = environment.port || 3000
