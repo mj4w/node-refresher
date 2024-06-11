@@ -8,6 +8,7 @@ const environment = {
     mongo_uri: process.env.MONGO_URI,
     pass_key: process.env.PASS_SECURITY,
     jwt_key: process.env.JWT_SECURITY,
+    stripe_key: process.env.STRIPE_KEY,
 }
 
 
